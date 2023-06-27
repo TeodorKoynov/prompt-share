@@ -8,8 +8,7 @@ import {signIn, signOut, useSession, getProviders} from 'next-auth/react'
 import logo from '../../public/assets/images/logo.svg';
 
 const Nav = () => {
-    const isUserLoggedIn = true;
-
+    const {data: session} = useSession();
     const [providers, setProviders] = useState(null);
     const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -37,7 +36,7 @@ const Nav = () => {
             </Link>
 
             <div className={"sm:flex hidden"}>
-                {isUserLoggedIn ? (
+                {session?.user ? (
                     <div className={"flex gap-3 md:gap-5"}>
                         <Link
                             href={"/create-prompt"}
@@ -56,7 +55,7 @@ const Nav = () => {
 
                         <Link href={"/profile"}>
                             <Image
-                                src={logo}
+                                src={session?.user.image }
                                 width={37}
                                 height={37}
                                 className={"rounded-full"}
@@ -84,14 +83,14 @@ const Nav = () => {
             {/*Mobile Nav*/}
 
             <div className={"sm:hidden flex relative"}>
-                {isUserLoggedIn ? (
+                {session?.user ? (
                     <div className={"flex"}>
                         <Image
-                            src={logo}
-                            alt={"PromptShare Logo"}
-                            width={30}
-                            height={30}
-                            className={"object-contain cursor-pointer"}
+                            src={session?.user.image}
+                            alt={"profile"}
+                            width={37}
+                            height={37}
+                            className={"rounded-full object-contain cursor-pointer"}
                             onClick={() => setToggleDropdown((prevToggle) => !prevToggle)}
                         />
 
