@@ -2,13 +2,13 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import {useSession} from "next-auth/react";
 import {usePathname, useRouter} from "next/navigation";
+import {useSession} from "next-auth/react";
 
 import tick from "/public/assets/icons/tick.svg";
 import copy from "/public/assets/icons/copy.svg";
 
-const PromptCard = ({post, handleTageClick, handleEdit, handleDelete}) => {
+const PromptCard = ({post, handleTagClick, handleEdit, handleDelete}) => {
     const {data: session} = useSession();
     const pathName = usePathname();
     const router = useRouter();
@@ -72,7 +72,7 @@ const PromptCard = ({post, handleTageClick, handleEdit, handleDelete}) => {
             </p>
             <p
                 className={"font-inter text-sm blue_gradient cursor-pointer"}
-                onClick={() => handleTagClick && handleTageClick(post.tag)}
+                onClick={() => handleTagClick && handleTagClick(post.tag)}
             >
                 #{post.tag}
             </p>
