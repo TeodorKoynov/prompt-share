@@ -15,6 +15,13 @@ const PromptCard = ({post, handleTageClick, handleEdit, handleDelete}) => {
 
     const [copied, setCopied] = useState('');
 
+    const handleProfileClick = () => {
+        if (post.creator._id === session?.user.id) {
+            return router.push("/profile");
+        }
+
+        return router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
+    }
 
     const handleCopied = () => {
         setCopied(post.prompt);
@@ -25,7 +32,10 @@ const PromptCard = ({post, handleTageClick, handleEdit, handleDelete}) => {
     return (
         <div className={"prompt_card"}>
             <div className={"flex justify-between items-start gap-5"}>
-                <div className={"flex-1 flex justify-start items-center gap-3 cursor-pointer"}>
+                <div
+                    className={"flex-1 flex justify-start items-center gap-3 cursor-pointer"}
+                    onClick={handleProfileClick}
+                >
                     <Image
                         src={post.creator.image}
                         alt={"user_image"}
@@ -34,11 +44,11 @@ const PromptCard = ({post, handleTageClick, handleEdit, handleDelete}) => {
                         className={"rounded-full object-contain"}
                     />
 
-                    <div className={"flex flex-col"}>
-                        <h3 className={"font-satoshi font-semibold text-gray-900"}>
+                    <div className={"flex flex-col truncate"}>
+                        <h3 className={"font-satoshi font-semibold text-gray-900 truncate"}>
                             {post.creator.username}
                         </h3>
-                        <p className={"font-inter text-sm text-gray-500"}>
+                        <p className={"font-inter text-sm text-gray-500 truncate"}>
                             {post.creator.email}
                         </p>
                     </div>
